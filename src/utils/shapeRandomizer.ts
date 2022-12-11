@@ -5,6 +5,8 @@ export const shapeRandomizer = () => {};
 const NUMBER_OF_SHAPES = 2;
 const X_AXIS_HIGHER_VALUE = 100;
 const Y_AXIS_HIGHER_VALUE = 100;
+const X_AXIS_LOWER_VALUE = -100;
+const Y_AXIS_LOWER_VALUE = -100;
 
 export const shapesGeometry = (randomNumber: number) => {
   switch (randomNumber) {
@@ -23,17 +25,17 @@ export const shapesGeometry = (randomNumber: number) => {
     // case 6:
     //   return new THREE.Shape();
     default:
-      return new THREE.SphereGeometry(2);
+      return new THREE.SphereGeometry(1);
   }
 };
 
 export const shapeMaterial = () => {
-  const colors = [0x7b68ee, 0xdbee68];
+  const colors = [0xcb68ee, 0xdbee68];
   const randomColorFromTheColorsList = colors[randomizer(colors)];
 
-  console.log(randomColorFromTheColorsList);
+  console.log('color',randomColorFromTheColorsList)
 
-  return new THREE.MeshBasicMaterial({
+  return new THREE.MeshLambertMaterial({
     color: randomColorFromTheColorsList,
     wireframe: randomizer(NUMBER_OF_SHAPES) > 0 || false,
   });
@@ -44,8 +46,14 @@ export const shape = () => {
     shapesGeometry(randomizer(NUMBER_OF_SHAPES)),
     shapeMaterial()
   );
-  shape.position.x = randomizer(X_AXIS_HIGHER_VALUE);
-  shape.position.y = randomizer(Y_AXIS_HIGHER_VALUE);
+  shape.position.x = randomNumberGeneratorFromGivenRange(X_AXIS_HIGHER_VALUE,X_AXIS_LOWER_VALUE);
+  shape.position.y = randomNumberGeneratorFromGivenRange(Y_AXIS_HIGHER_VALUE,Y_AXIS_LOWER_VALUE);
+  
+    /*** */
+
+  // shape.position.x = -10;
+  // shape.position.y = 1;
+  
   return shape;
 };
 
@@ -54,4 +62,12 @@ export const randomizer = (array: Array<any> | number): number => {
   return Math.floor(Math.random() * array.length);
 };
 
-const randomCoordinateGenerator = () => {};
+export const randomNumberGeneratorFromGivenRange = (max:number, min:number) => {
+  
+let delta = max - min;  
+
+const randomNumber = Math.round(min + Math.random() * delta);
+
+
+return randomNumber;
+};

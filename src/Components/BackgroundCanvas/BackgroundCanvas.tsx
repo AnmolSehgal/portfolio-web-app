@@ -34,9 +34,9 @@ const BackgroundCanvas = () => {
         shapes?.forEach((shape: any, index) => {
           shape.position.z -= 0.05;
           shape.rotation.y += 0.05;
-          if (shape.position.z <= -40) scene.remove(shape);
+          if (shape.position.z <= -60) scene.remove(shape);
         });
-        shapes = shapes.filter((shape) => shape.position.z >= -50);
+        shapes = shapes.filter((shape) => shape.position.z >= -60);
 
         renderer.render(scene, camera);
 
