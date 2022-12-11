@@ -1,3 +1,1 @@
-export const heart = ()=>{
-    
-}
+export const heart = () => {};
